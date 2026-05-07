@@ -44,6 +44,7 @@ let buildIndex = 0;
 let quizIndex = 0;
 let selectedLetters = [];
 let shuffledLetters = [];
+let audioContext = null;
 
 function displayWord(text) {
   return text ? text.charAt(0).toUpperCase() + text.slice(1).toLowerCase() : "";
@@ -51,6 +52,43 @@ function displayWord(text) {
 
 function displayLetter(letter, position) {
   return position === 0 ? letter.toUpperCase() : letter.toLowerCase();
+}
+
+function getAudioContext() {
+  audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+  return audioContext;
+}
+
+function playTone(frequency, startTime, duration, type, gainValue) {
+  const context = getAudioContext();
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+
+  oscillator.type = type;
+  oscillator.frequency.setValueAtTime(frequency, startTime);
+  gain.gain.setValueAtTime(0.001, startTime);
+  gain.gain.exponentialRampToValueAtTime(gainValue, startTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start(startTime);
+  oscillator.stop(startTime + duration + 0.03);
+}
+
+function playSound(kind) {
+  const context = getAudioContext();
+  const now = context.currentTime;
+
+  if (kind === "success") {
+    playTone(523.25, now, 0.14, "sine", 0.12);
+    playTone(659.25, now + 0.1, 0.14, "sine", 0.12);
+    playTone(783.99, now + 0.2, 0.22, "triangle", 0.14);
+    return;
+  }
+
+  playTone(130.81, now, 0.2, "square", 0.08);
+  playTone(98, now + 0.08, 0.22, "sawtooth", 0.06);
 }
 
 function svgFor(word) {
@@ -153,11 +191,13 @@ function checkBuildAnswer() {
   const word = words[buildIndex].english;
   const answer = selectedLetters.map((item) => item.letter).join("");
   if (answer === word) {
+    playSound("success");
     addStar();
     buildIndex = (buildIndex + 1) % words.length;
     setFeedback(`Excellent. ${displayWord(word)} is correct!`, "good");
     setTimeout(renderBuild, 850);
   } else {
+    playSound("wrong");
     setFeedback("Almost. Try the letters again from the beginning.", "try");
   }
 }
@@ -175,11 +215,13 @@ function checkQuizAnswer() {
   const word = words[quizIndex].english;
   const answer = quizInput.value.trim().toLowerCase();
   if (answer === word) {
+    playSound("success");
     addStar();
     quizIndex = (quizIndex + 1) % words.length;
     setFeedback(`Great spelling. ${displayWord(word)}!`, "good");
     setTimeout(renderQuiz, 850);
   } else {
+    playSound("wrong");
     setFeedback("Not yet. Check each letter and try again.", "try");
   }
 }
