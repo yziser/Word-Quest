@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word Quest</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-theme="cats">
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">English spelling</p>
+          <h1>Word Quest</h1>
+        </div>
+        <div class="score-pill" aria-live="polite">
+          <span>Stars</span>
+          <strong id="stars">0</strong>
+        </div>
+      </header>
+
+      <nav class="mode-tabs" aria-label="Game modes">
+        <button class="tab is-active" type="button" data-mode="cards">Cards</button>
+        <button class="tab" type="button" data-mode="build">Build</button>
+        <button class="tab" type="button" data-mode="quiz">Quiz</button>
+      </nav>
+
+      <section class="theme-picker" aria-label="Background choices">
+        <button class="theme-chip is-active" type="button" data-theme="cats">
+          <span class="theme-swatch cats"></span>
+          Cats
+        </button>
+        <button class="theme-chip" type="button" data-theme="star-battle">
+          <span class="theme-swatch star-battle"></span>
+          Star Battle
+        </button>
+        <button class="theme-chip" type="button" data-theme="space">
+          <span class="theme-swatch space"></span>
+          Space
+        </button>
+        <button class="theme-chip" type="button" data-theme="candy">
+          <span class="theme-swatch candy"></span>
+          Candy
+        </button>
+        <button class="theme-chip" type="button" data-theme="ocean">
+          <span class="theme-swatch ocean"></span>
+          Ocean
+        </button>
+      </section>
+
+      <section class="game-area" id="cardsPanel" data-panel="cards">
+        <div class="word-stage">
+          <div class="word-art" id="cardArt" aria-hidden="true"></div>
+          <div class="word-copy">
+            <p class="hebrew" id="cardHebrew" dir="rtl"></p>
+            <p class="english-word" id="cardEnglish"></p>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="round-action" id="prevCard" type="button" aria-label="Previous word">&lt;</button>
+          <button class="primary-action" id="revealCard" type="button">Show Word</button>
+          <button class="round-action" id="nextCard" type="button" aria-label="Next word">&gt;</button>
+        </div>
+      </section>
+
+      <section class="game-area hidden" id="buildPanel" data-panel="build">
+        <div class="prompt-block">
+          <div class="mini-art" id="buildArt" aria-hidden="true"></div>
+          <div>
+            <p class="prompt-label">Build this word</p>
+            <p class="hebrew compact" id="buildHebrew" dir="rtl"></p>
+          </div>
+        </div>
+        <div class="answer-slots" id="answerSlots" aria-live="polite"></div>
+        <div class="letter-bank" id="letterBank"></div>
+        <div class="action-row">
+          <button class="secondary-action" id="clearBuild" type="button">Clear</button>
+          <button class="primary-action" id="checkBuild" type="button">Check</button>
+        </div>
+      </section>
+
+      <section class="game-area hidden" id="quizPanel" data-panel="quiz">
+        <div class="prompt-block">
+          <div class="mini-art" id="quizArt" aria-hidden="true"></div>
+          <div>
+            <p class="prompt-label">Type the English word</p>
+            <p class="hebrew compact" id="quizHebrew" dir="rtl"></p>
+          </div>
+        </div>
+        <input
+          id="quizInput"
+          class="quiz-input"
+          type="text"
+          inputmode="latin"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-label="English spelling answer"
+        />
+        <div class="action-row">
+          <button class="secondary-action" id="hintQuiz" type="button">Hint</button>
+          <button class="primary-action" id="checkQuiz" type="button">Check</button>
+        </div>
+      </section>
+
+      <footer class="feedback" id="feedback" aria-live="polite">Pick a mode and start practicing.</footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
