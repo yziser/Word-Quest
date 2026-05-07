@@ -14,8 +14,10 @@ const words = [
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll("[data-panel]");
 const themeButtons = document.querySelectorAll(".theme-chip[data-theme]");
+const scorePill = document.querySelector(".score-pill");
 const starsEl = document.querySelector("#stars");
 const feedback = document.querySelector("#feedback");
+const celebration = document.querySelector("#celebration");
 
 const cardArt = document.querySelector("#cardArt");
 const cardHebrew = document.querySelector("#cardHebrew");
@@ -45,6 +47,7 @@ let quizIndex = 0;
 let selectedLetters = [];
 let shuffledLetters = [];
 let audioContext = null;
+let celebrationTimer = null;
 
 function displayWord(text) {
   return text ? text.charAt(0).toUpperCase() + text.slice(1).toLowerCase() : "";
@@ -52,6 +55,10 @@ function displayWord(text) {
 
 function displayLetter(letter, position) {
   return position === 0 ? letter.toUpperCase() : letter.toLowerCase();
+}
+
+function normalizeAnswer(text) {
+  return text.trim().toLowerCase();
 }
 
 function getAudioContext() {
@@ -89,6 +96,35 @@ function playSound(kind) {
 
   playTone(130.81, now, 0.2, "square", 0.08);
   playTone(98, now + 0.08, 0.22, "sawtooth", 0.06);
+}
+
+function celebrate() {
+  const colors = ["#ff7a7a", "#ffd166", "#58c6a4", "#63b3ed", "#a78bfa", "#f472b6"];
+  celebration.innerHTML = "";
+  clearTimeout(celebrationTimer);
+
+  for (let i = 0; i < 32; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti";
+    piece.style.setProperty("--x", `${12 + Math.random() * 76}%`);
+    piece.style.setProperty("--y", `${8 + Math.random() * 24}%`);
+    piece.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
+    piece.style.setProperty("--color", colors[i % colors.length]);
+    celebration.append(piece);
+  }
+
+  for (let i = 0; i < 4; i++) {
+    const burst = document.createElement("span");
+    burst.className = "firework";
+    burst.style.setProperty("--x", `${20 + Math.random() * 60}%`);
+    burst.style.setProperty("--y", `${18 + Math.random() * 38}%`);
+    burst.style.setProperty("--color", colors[(i + 2) % colors.length]);
+    celebration.append(burst);
+  }
+
+  celebrationTimer = setTimeout(() => {
+    celebration.innerHTML = "";
+  }, 1000);
 }
 
 function svgFor(word) {
@@ -136,6 +172,15 @@ function setFeedback(message, tone = "") {
 function addStar() {
   stars += 1;
   starsEl.textContent = stars.toString();
+  scorePill.classList.remove("reward-pop");
+  void scorePill.offsetWidth;
+  scorePill.classList.add("reward-pop");
+
+  const flyingStar = document.createElement("span");
+  flyingStar.className = "flying-star";
+  flyingStar.textContent = "★";
+  scorePill.append(flyingStar);
+  setTimeout(() => flyingStar.remove(), 780);
 }
 
 function renderCard() {
@@ -189,9 +234,10 @@ function renderBuildLetters() {
 
 function checkBuildAnswer() {
   const word = words[buildIndex].english;
-  const answer = selectedLetters.map((item) => item.letter).join("");
+  const answer = normalizeAnswer(selectedLetters.map((item) => item.letter).join(""));
   if (answer === word) {
     playSound("success");
+    celebrate();
     addStar();
     buildIndex = (buildIndex + 1) % words.length;
     setFeedback(`Excellent. ${displayWord(word)} is correct!`, "good");
@@ -213,9 +259,10 @@ function renderQuiz() {
 
 function checkQuizAnswer() {
   const word = words[quizIndex].english;
-  const answer = quizInput.value.trim().toLowerCase();
+  const answer = normalizeAnswer(quizInput.value);
   if (answer === word) {
     playSound("success");
+    celebrate();
     addStar();
     quizIndex = (quizIndex + 1) % words.length;
     setFeedback(`Great spelling. ${displayWord(word)}!`, "good");
@@ -283,4 +330,4 @@ setTheme(localStorage.getItem("wordQuestTheme") || "cats");
 renderCard();
 renderBuild();
 renderQuiz();
-setMode("cards");
+setMode("build");

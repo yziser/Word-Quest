@@ -14,15 +14,15 @@
           <h1>Word Quest</h1>
         </div>
         <div class="score-pill" aria-live="polite">
-          <span>Stars</span>
+          <span class="star-icon" aria-label="Stars">★</span>
           <strong id="stars">0</strong>
         </div>
       </header>
 
       <nav class="mode-tabs" aria-label="Game modes">
-        <button class="tab is-active" type="button" data-mode="cards">Cards</button>
-        <button class="tab" type="button" data-mode="build">Build</button>
+        <button class="tab is-active" type="button" data-mode="build">Build</button>
         <button class="tab" type="button" data-mode="quiz">Quiz</button>
+        <button class="tab" type="button" data-mode="cards">Cards</button>
       </nav>
 
       <section class="theme-picker" aria-label="Background choices">
@@ -104,6 +104,7 @@
       </section>
 
       <footer class="feedback" id="feedback" aria-live="polite">Pick a mode and start practicing.</footer>
+      <div class="celebration" id="celebration" aria-hidden="true"></div>
     </main>
 
     <script src="./app.js"></script>

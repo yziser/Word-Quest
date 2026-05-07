@@ -18,11 +18,12 @@
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
 }
 
 body {
   margin: 0;
+  overflow: hidden;
   background:
     radial-gradient(circle at top left, rgba(99, 179, 237, 0.34), transparent 34%),
     linear-gradient(155deg, #fff3c4 0%, #e7fbf4 46%, #eef2ff 100%);
@@ -119,12 +120,13 @@ button {
 
 .app {
   width: min(100%, 480px);
-  min-height: 100vh;
+  height: 100dvh;
   margin: 0 auto;
-  padding: 16px;
+  padding: 10px;
   display: grid;
   grid-template-rows: auto auto auto 1fr auto;
-  gap: 14px;
+  gap: 8px;
+  overflow: hidden;
 }
 
 .topbar {
@@ -137,53 +139,73 @@ button {
 .eyebrow {
   margin: 0 0 2px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(2rem, 12vw, 3.3rem);
+  font-size: clamp(1.7rem, 9vw, 2.6rem);
   line-height: 0.95;
 }
 
 .score-pill {
-  min-width: 82px;
-  min-height: 58px;
-  padding: 9px 12px;
+  position: relative;
+  min-width: 70px;
+  min-height: 48px;
+  padding: 6px 10px;
   display: grid;
+  grid-template-columns: auto auto;
   place-items: center;
+  gap: 5px;
   border-radius: 8px;
   background: var(--panel);
   box-shadow: var(--shadow);
   border: 2px solid rgba(255, 209, 102, 0.8);
+  overflow: visible;
 }
 
-.score-pill span {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
+.score-pill.reward-pop {
+  animation: reward-pop 520ms cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+.star-icon {
+  color: #ffb703;
+  font-size: 1.55rem;
+  line-height: 1;
+  text-shadow: 0 2px 0 rgba(38, 50, 56, 0.14);
 }
 
 .score-pill strong {
-  font-size: 1.55rem;
+  min-width: 24px;
+  font-size: 1.4rem;
   line-height: 1;
+}
+
+.score-pill .flying-star {
+  position: absolute;
+  left: 12px;
+  top: -8px;
+  color: #ffb703;
+  font-size: 1.45rem;
+  text-shadow: 0 2px 0 rgba(38, 50, 56, 0.14);
+  animation: flying-star 760ms ease-out forwards;
+  pointer-events: none;
 }
 
 .mode-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 6px;
+  gap: 6px;
+  padding: 5px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.74);
 }
 
 .tab {
-  min-height: 46px;
+  min-height: 38px;
   border-radius: 7px;
   background: transparent;
   color: var(--muted);
@@ -198,8 +220,8 @@ h1 {
 .theme-picker {
   display: grid;
   grid-template-columns: repeat(5, minmax(58px, 1fr));
-  gap: 7px;
-  padding: 6px;
+  gap: 5px;
+  padding: 5px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.82);
@@ -207,15 +229,15 @@ h1 {
 
 .theme-chip {
   min-width: 0;
-  min-height: 58px;
+  min-height: 42px;
   display: grid;
   place-items: center;
-  gap: 3px;
+  gap: 2px;
   border-radius: 7px;
   background: #fff;
   border: 2px solid transparent;
   color: var(--muted);
-  font-size: 0.7rem;
+  font-size: 0.58rem;
   font-weight: 1000;
 }
 
@@ -225,8 +247,8 @@ h1 {
 }
 
 .theme-swatch {
-  width: 30px;
-  height: 22px;
+  width: 24px;
+  height: 16px;
   border-radius: 6px;
   border: 1px solid rgba(38, 50, 56, 0.14);
 }
@@ -262,11 +284,12 @@ h1 {
 }
 
 .game-area {
-  min-height: 470px;
+  min-height: 0;
+  height: 100%;
   display: grid;
   align-content: center;
-  gap: 18px;
-  padding: 18px;
+  gap: 10px;
+  padding: 12px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid rgba(255, 255, 255, 0.8);
@@ -279,12 +302,12 @@ h1 {
 
 .word-stage {
   display: grid;
-  gap: 18px;
+  gap: 8px;
   justify-items: center;
 }
 
 .word-art {
-  width: min(86vw, 300px);
+  width: min(58vw, 210px, 30dvh);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -297,7 +320,7 @@ h1 {
 }
 
 .word-copy {
-  min-height: 116px;
+  min-height: 78px;
   display: grid;
   place-items: center;
   gap: 4px;
@@ -306,19 +329,19 @@ h1 {
 
 .hebrew {
   margin: 0;
-  font-size: clamp(2rem, 10vw, 3.4rem);
+  font-size: clamp(1.55rem, 8vw, 2.5rem);
   font-weight: 900;
 }
 
 .hebrew.compact {
-  font-size: clamp(1.5rem, 7vw, 2.3rem);
+  font-size: clamp(1.3rem, 6vw, 1.9rem);
   text-align: start;
 }
 
 .english-word {
   margin: 0;
-  min-height: 58px;
-  font-size: clamp(2.1rem, 13vw, 4rem);
+  min-height: 42px;
+  font-size: clamp(1.8rem, 10vw, 3rem);
   font-weight: 1000;
   line-height: 1;
   color: var(--coral);
@@ -339,7 +362,7 @@ h1 {
 .secondary-action,
 .round-action,
 .letter {
-  min-height: 52px;
+  min-height: 44px;
   border-radius: 8px;
   font-weight: 1000;
   box-shadow: 0 8px 0 rgba(38, 50, 56, 0.12);
@@ -372,13 +395,13 @@ h1 {
 
 .prompt-block {
   display: grid;
-  grid-template-columns: 92px 1fr;
-  gap: 14px;
+  grid-template-columns: 74px 1fr;
+  gap: 10px;
   align-items: center;
 }
 
 .mini-art {
-  width: 92px;
+  width: 74px;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -401,7 +424,7 @@ h1 {
 }
 
 .answer-slots {
-  min-height: 60px;
+  min-height: 48px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -409,8 +432,8 @@ h1 {
 }
 
 .slot {
-  width: 44px;
-  height: 54px;
+  width: 38px;
+  height: 46px;
   display: grid;
   place-items: center;
   border-radius: 8px;
@@ -424,8 +447,8 @@ h1 {
 
 .letter-bank {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
+  gap: 7px;
 }
 
 .letter {
@@ -442,14 +465,14 @@ h1 {
 
 .quiz-input {
   width: 100%;
-  min-height: 64px;
+  min-height: 52px;
   padding: 8px 14px;
   border-radius: 8px;
   border: 3px solid var(--line);
   outline: 0;
   background: #fff;
   color: var(--ink);
-  font-size: 2rem;
+  font-size: 1.65rem;
   font-weight: 900;
   text-align: center;
   text-transform: none;
@@ -460,8 +483,8 @@ h1 {
 }
 
 .feedback {
-  min-height: 54px;
-  padding: 12px 14px;
+  min-height: 42px;
+  padding: 8px 10px;
   display: grid;
   place-items: center;
   border-radius: 8px;
@@ -469,6 +492,79 @@ h1 {
   color: #fff;
   font-weight: 900;
   text-align: center;
+}
+
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti,
+.firework {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  pointer-events: none;
+}
+
+.confetti {
+  width: 9px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--color);
+  animation: confetti-pop 1s ease-out forwards;
+}
+
+.firework {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color);
+  box-shadow:
+    0 -28px 0 var(--color),
+    20px -20px 0 var(--color),
+    28px 0 0 var(--color),
+    20px 20px 0 var(--color),
+    0 28px 0 var(--color),
+    -20px 20px 0 var(--color),
+    -28px 0 0 var(--color),
+    -20px -20px 0 var(--color);
+  animation: firework-burst 1s ease-out forwards;
+}
+
+@keyframes confetti-pop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0) rotate(0deg) scale(0.7);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift), 58dvh, 0) rotate(520deg) scale(1);
+  }
+}
+
+@keyframes firework-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.18);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
 }
 
 .feedback.good {
@@ -479,15 +575,53 @@ h1 {
   background: #9a4b5a;
 }
 
+@keyframes reward-pop {
+  0% {
+    transform: scale(1);
+    box-shadow: var(--shadow);
+  }
+
+  35% {
+    transform: scale(1.16) rotate(-3deg);
+    box-shadow:
+      0 0 0 8px rgba(255, 209, 102, 0.3),
+      0 18px 50px rgba(44, 62, 80, 0.18);
+  }
+
+  70% {
+    transform: scale(0.96) rotate(2deg);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow);
+  }
+}
+
+@keyframes flying-star {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.3) rotate(0deg);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, -48px, 0) scale(1.7) rotate(220deg);
+  }
+}
+
 @media (max-width: 380px) {
   .app {
-    padding: 10px;
-    gap: 10px;
+    padding: 8px;
+    gap: 6px;
   }
 
   .game-area {
-    min-height: 410px;
-    padding: 14px;
+    padding: 10px;
   }
 
   .theme-picker {
@@ -495,8 +629,8 @@ h1 {
   }
 
   .theme-chip {
-    min-height: 52px;
-    font-size: 0.62rem;
+    min-height: 38px;
+    font-size: 0.54rem;
   }
 
   .prompt-block {
