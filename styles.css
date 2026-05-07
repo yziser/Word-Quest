@@ -24,87 +24,12 @@ body {
 body {
   margin: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(99, 179, 237, 0.34), transparent 34%),
-    linear-gradient(155deg, #fff3c4 0%, #e7fbf4 46%, #eef2ff 100%);
+  background: #ffffff;
   color: var(--ink);
   font-family:
     Nunito, ui-rounded, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
     sans-serif;
   letter-spacing: 0;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.52;
-  background-size: 150px 150px;
-  pointer-events: none;
-}
-
-body[data-theme="cats"] {
-  background: linear-gradient(155deg, #fff0d9 0%, #e9fbff 52%, #fff5fb 100%);
-}
-
-body[data-theme="cats"]::before {
-  background-image:
-    radial-gradient(circle at 35px 34px, #ffb4a2 0 17px, transparent 18px),
-    radial-gradient(circle at 27px 22px, #ffb4a2 0 8px, transparent 9px),
-    radial-gradient(circle at 43px 22px, #ffb4a2 0 8px, transparent 9px),
-    radial-gradient(circle at 31px 34px, #263238 0 2px, transparent 3px),
-    radial-gradient(circle at 40px 34px, #263238 0 2px, transparent 3px),
-    radial-gradient(circle at 35px 40px, #fffaf0 0 5px, transparent 6px);
-}
-
-body[data-theme="star-battle"] {
-  background: linear-gradient(155deg, #ffe29a 0%, #a7f3d0 46%, #93c5fd 100%);
-}
-
-body[data-theme="star-battle"]::before {
-  background-image:
-    conic-gradient(from 18deg at 35px 35px, transparent 0 12%, #ffd166 12% 20%, transparent 20% 32%, #ffd166 32% 40%, transparent 40% 52%, #ffd166 52% 60%, transparent 60% 72%, #ffd166 72% 80%, transparent 80%),
-    radial-gradient(circle at 106px 48px, #263238 0 14px, transparent 15px),
-    radial-gradient(circle at 100px 45px, #fff 0 3px, transparent 4px),
-    radial-gradient(circle at 112px 45px, #fff 0 3px, transparent 4px),
-    linear-gradient(135deg, transparent 0 72px, rgba(255, 122, 122, 0.55) 72px 82px, transparent 82px);
-}
-
-body[data-theme="space"] {
-  background: linear-gradient(155deg, #1f2a5c 0%, #54329b 48%, #0f172a 100%);
-  color: #263238;
-}
-
-body[data-theme="space"]::before {
-  opacity: 0.7;
-  background-image:
-    radial-gradient(circle at 24px 26px, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 108px 36px, #fff 0 1px, transparent 2px),
-    radial-gradient(circle at 74px 104px, #ffd166 0 16px, transparent 17px),
-    radial-gradient(circle at 112px 112px, #63b3ed 0 10px, transparent 11px);
-}
-
-body[data-theme="candy"] {
-  background: linear-gradient(155deg, #fff1f2 0%, #fdf2f8 48%, #ecfeff 100%);
-}
-
-body[data-theme="candy"]::before {
-  background-image:
-    repeating-linear-gradient(45deg, rgba(255, 122, 122, 0.55) 0 12px, transparent 12px 28px),
-    radial-gradient(circle at 40px 102px, #a78bfa 0 13px, transparent 14px),
-    radial-gradient(circle at 112px 44px, #58c6a4 0 12px, transparent 13px);
-}
-
-body[data-theme="ocean"] {
-  background: linear-gradient(155deg, #d7fbff 0%, #a7f3d0 48%, #60a5fa 100%);
-}
-
-body[data-theme="ocean"]::before {
-  background-image:
-    radial-gradient(circle at 34px 44px, rgba(255, 255, 255, 0.85) 0 11px, transparent 12px),
-    radial-gradient(circle at 104px 94px, rgba(255, 255, 255, 0.72) 0 8px, transparent 9px),
-    repeating-radial-gradient(ellipse at 74px 122px, rgba(14, 116, 144, 0.34) 0 6px, transparent 7px 16px);
 }
 
 button,
@@ -124,7 +49,7 @@ button {
   margin: 0 auto;
   padding: 10px;
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   gap: 8px;
   overflow: hidden;
 }
@@ -215,72 +140,6 @@ h1 {
 .tab.is-active {
   background: var(--ink);
   color: #fff;
-}
-
-.theme-picker {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(58px, 1fr));
-  gap: 5px;
-  padding: 5px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.82);
-}
-
-.theme-chip {
-  min-width: 0;
-  min-height: 42px;
-  display: grid;
-  place-items: center;
-  gap: 2px;
-  border-radius: 7px;
-  background: #fff;
-  border: 2px solid transparent;
-  color: var(--muted);
-  font-size: 0.58rem;
-  font-weight: 1000;
-}
-
-.theme-chip.is-active {
-  border-color: var(--ink);
-  color: var(--ink);
-}
-
-.theme-swatch {
-  width: 24px;
-  height: 16px;
-  border-radius: 6px;
-  border: 1px solid rgba(38, 50, 56, 0.14);
-}
-
-.theme-swatch.cats {
-  background:
-    radial-gradient(circle at 13px 11px, #ffb4a2 0 9px, transparent 10px),
-    linear-gradient(135deg, #fff0d9, #e9fbff);
-}
-
-.theme-swatch.star-battle {
-  background:
-    radial-gradient(circle at 20px 11px, #263238 0 6px, transparent 7px),
-    conic-gradient(from 18deg at 9px 11px, #ffd166 0 12%, transparent 12% 24%, #ffd166 24% 36%, transparent 36% 48%, #ffd166 48% 60%, transparent 60%),
-    #93c5fd;
-}
-
-.theme-swatch.space {
-  background:
-    radial-gradient(circle at 8px 7px, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 22px 14px, #ffd166 0 5px, transparent 6px),
-    #1f2a5c;
-}
-
-.theme-swatch.candy {
-  background: repeating-linear-gradient(45deg, #ff7a7a 0 6px, #fff 6px 12px, #a78bfa 12px 18px);
-}
-
-.theme-swatch.ocean {
-  background:
-    radial-gradient(circle at 20px 8px, rgba(255, 255, 255, 0.8) 0 4px, transparent 5px),
-    linear-gradient(135deg, #a7f3d0, #60a5fa);
 }
 
 .game-area {
@@ -622,15 +481,6 @@ h1 {
 
   .game-area {
     padding: 10px;
-  }
-
-  .theme-picker {
-    grid-template-columns: repeat(5, minmax(48px, 1fr));
-  }
-
-  .theme-chip {
-    min-height: 38px;
-    font-size: 0.54rem;
   }
 
   .prompt-block {

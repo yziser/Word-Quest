@@ -13,7 +13,6 @@ const words = [
 
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll("[data-panel]");
-const themeButtons = document.querySelectorAll(".theme-chip[data-theme]");
 const scorePill = document.querySelector(".score-pill");
 const starsEl = document.querySelector("#stars");
 const feedback = document.querySelector("#feedback");
@@ -156,14 +155,6 @@ function setMode(mode) {
   if (mode === "quiz") renderQuiz();
 }
 
-function setTheme(theme) {
-  document.body.dataset.theme = theme;
-  themeButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.theme === theme);
-  });
-  localStorage.setItem("wordQuestTheme", theme);
-}
-
 function setFeedback(message, tone = "") {
   feedback.textContent = message;
   feedback.className = `feedback ${tone}`.trim();
@@ -277,10 +268,6 @@ tabs.forEach((tab) => {
   tab.addEventListener("click", () => setMode(tab.dataset.mode));
 });
 
-themeButtons.forEach((button) => {
-  button.addEventListener("click", () => setTheme(button.dataset.theme));
-});
-
 prevCard.addEventListener("click", () => changeCard(-1));
 nextCard.addEventListener("click", () => changeCard(1));
 revealCard.addEventListener("click", () => {
@@ -326,7 +313,6 @@ quizInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") checkQuizAnswer();
 });
 
-setTheme(localStorage.getItem("wordQuestTheme") || "cats");
 renderCard();
 renderBuild();
 renderQuiz();
