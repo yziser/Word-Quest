@@ -156,6 +156,7 @@ function setMode(mode) {
 }
 
 function setFeedback(message, tone = "") {
+  if (!feedback) return;
   feedback.textContent = message;
   feedback.className = `feedback ${tone}`.trim();
 }
@@ -244,7 +245,6 @@ function renderQuiz() {
   quizArt.innerHTML = svgFor(word);
   quizHebrew.textContent = word.hebrew;
   quizInput.value = "";
-  quizInput.focus({ preventScroll: true });
   setFeedback("Type the English word. Use the picture and Hebrew to remember it.");
 }
 
